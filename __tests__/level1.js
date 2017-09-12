@@ -4,6 +4,7 @@ import App from '../src/App';
 import ShoeList from '../src/components/ShoeList';
 import NavBar from '../src/components/NavBar';
 import Api from '../src/api';
+import Shoe from '../src/components/Shoe';
 
 describe('App', () => {
 
