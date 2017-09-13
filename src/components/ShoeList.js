@@ -5,9 +5,11 @@ const ShoeList = (props) => (
  <div className="row">
    {
     props.shoes.map(function(shoe){
-       return <Shoe brand={shoe.brand} 
-                    name={shoe.name} 
-                    price={shoe.price} />
+       return <Shoe key={ shoe.id }
+                    brand={ shoe.brand } 
+                    name={ shoe.name } 
+                    price={ shoe.price } 
+                    onShoeSelect={props.onShoeSelect}/>
      })
    }
  </div>

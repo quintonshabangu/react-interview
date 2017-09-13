@@ -10,7 +10,7 @@ const Shoe = (props) => (
             <p>R{props.price.toFixed(2)}</p>            
           </div>
           <div className="card-action">
-            <a href="#">Add To Cart</a>
+            <a onClick={() => props.onShoeSelect(props)}>Add To Cart </a>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import {shallow} from 'enzyme';
 import Facet from '../src/components/Facet';
 import App from '../src/App';
 import {countByKey} from '../src/utils';
+import Shoe from '../src/components/Shoe';
 
 const mockShoes = [
   { id: 'a', brand: 'Nike', name: 'Air Max 90', price: 2999.99 },

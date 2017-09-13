@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavBar from './components/NavBar';
 import Api from './api';
 import ShoeList from './components/ShoeList';
+import CartSummary from './components/CartSummary';
 
 class App extends Component {
 
@@ -12,7 +13,12 @@ class App extends Component {
    * */
   constructor(props) {
     super(props);
-    this.state = { shoes : []}
+    this.state = { 
+        shoes : [],
+        cart : []
+    }
+
+    this.handleShoeSelect = this.handleShoeSelect.bind(this);
   }
 
   /**
@@ -29,29 +35,33 @@ class App extends Component {
   }
 
   handleShoeSelect (shoe) {
+    const newCart = this.state.cart.slice();
+    newCart.push(shoe);
 
+    this.setState({cart: newCart});
   }
 
   render() {
     return (
       <div>
-
         <NavBar title="My App Store" />
         <div className="row">
           <div className="col s3">
           </div>
 
           <div className="col s6">
-            <ShoeList shoes={this.state.shoes} />
+            <ShoeList shoes={this.state.shoes} 
+              onShoeSelect={this.handleShoeSelect} />
           </div>
 
           <div className="col s3">
+            <CartSummary cart={this.state.cart} />
           </div>
         </div>
       </div>
 
     );
-  }
+  }s
 }
 
 export default App;
