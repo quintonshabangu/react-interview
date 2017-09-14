@@ -16,13 +16,30 @@ class App extends Component {
     super(props);
     this.state = { 
         shoes : [],
-        cart : [],
+        cart : this.retrieveCartFromLocal(),
         facetSelected: null
     }
 
     this.handleShoeSelect = this.handleShoeSelect.bind(this);
     this.handleFacetSelect = this.handleFacetSelect.bind(this);
     this.handleShoeDelete = this.handleShoeDelete.bind(this);
+  }
+
+  saveCartToLocal() {
+    if (typeof(Storage) !== "undefined") {
+      localStorage.removeItem("cart");
+      localStorage.setItem("cart", JSON.stringify(this.state.cart));
+    }
+  }
+
+  retrieveCartFromLocal() {
+    if (typeof(Storage) !== "undefined") {
+      let result = localStorage.getItem("cart");
+      if (result == null)
+        return [];
+      return JSON.parse(result);
+    }
+    return [];
   }
 
   /**
@@ -40,7 +57,9 @@ class App extends Component {
     const newCart = this.state.cart.slice();
     newCart.push(shoe);
 
-    this.setState({cart: newCart});
+    this.setState({cart: newCart}, function(){
+      this.saveCartToLocal();
+    });
   }
 
   handleShoeDelete(shoe) {
@@ -48,7 +67,9 @@ class App extends Component {
     if (index > -1) {
       let newCart = this.state.cart.slice();
       newCart.splice(index, 1);
-      this.setState({cart: newCart});
+      this.setState({cart: newCart}, function() {
+        this.saveCartToLocal();
+      });
     }
   }
 
