@@ -11,3 +11,7 @@ a:hover {
  .facet {
    cursor: pointer;
  }
+
+ .shoe-delete-link{
+   float: right;
+ }

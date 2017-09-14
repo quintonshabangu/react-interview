@@ -5,7 +5,7 @@ const ShoeList = (props) => (
  <div className="row">
    {
     props.shoes.map(function(shoe){
-       return <Shoe key={ shoe.id }
+       return <Shoe id={ shoe.id }
                     brand={ shoe.brand } 
                     name={ shoe.name } 
                     price={ shoe.price } 

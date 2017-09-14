@@ -22,6 +22,7 @@ class App extends Component {
 
     this.handleShoeSelect = this.handleShoeSelect.bind(this);
     this.handleFacetSelect = this.handleFacetSelect.bind(this);
+    this.handleShoeDelete = this.handleShoeDelete.bind(this);
   }
 
   /**
@@ -40,6 +41,15 @@ class App extends Component {
     newCart.push(shoe);
 
     this.setState({cart: newCart});
+  }
+
+  handleShoeDelete(shoe) {
+    let index = this.state.cart.indexOf(shoe);
+    if (index > -1) {
+      let newCart = this.state.cart.slice();
+      newCart.splice(index, 1);
+      this.setState({cart: newCart});
+    }
   }
 
   filterShoes() {
@@ -84,13 +94,14 @@ class App extends Component {
           </div>
 
           <div className="col s3">
-            <CartSummary cart={this.state.cart} />
+            <CartSummary cart={this.state.cart} 
+              onShoeDelete={this.handleShoeDelete}/>
           </div>
         </div>
       </div>
 
     );
-  }s
+  }
 }
 
 export default App;

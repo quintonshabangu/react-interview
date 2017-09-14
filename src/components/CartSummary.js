@@ -9,9 +9,20 @@ const CartSummary = (props) => {
 
   return (
     <div className="CartSummary">
-      <h5>My Cart</h5>
-      <p><strong>Total Items: </strong> <span id="ItemCount">{props.cart.length}</span></p>
-      <p><strong>Total Cost:</strong> <span id="TotalCost">{totalCost.toFixed(2)}</span></p>
+        <ul className="collection">
+        <li className="collection-item"><h5>My Cart</h5></li>
+          {
+            props.cart.map(function(shoe){
+            return <li className="collection-item">
+                      <strong>{shoe.brand} > {shoe.name}: R{shoe.price}</strong>
+                      <a onClick={() => props.onShoeDelete(shoe)} className="shoe-delete-link red-text text-darken-2">Delete</a>
+                   </li>
+            })
+          }
+
+          <li className="collection-item"><strong>Total Items: </strong> <span id="ItemCount">{props.cart.length}</span></li>
+          <li className="collection-item"><strong>Total Cost:</strong> R<span id="TotalCost">{totalCost.toFixed(2)}</span></li>
+        </ul>
     </div>
   )
 };
