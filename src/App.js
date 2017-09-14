@@ -3,6 +3,7 @@ import NavBar from './components/NavBar';
 import Api from './api';
 import ShoeList from './components/ShoeList';
 import CartSummary from './components/CartSummary';
+import Facet from './components/Facet';
 
 class App extends Component {
 
@@ -15,10 +16,12 @@ class App extends Component {
     super(props);
     this.state = { 
         shoes : [],
-        cart : []
+        cart : [],
+        facetSelected: null
     }
 
     this.handleShoeSelect = this.handleShoeSelect.bind(this);
+    this.handleFacetSelect = this.handleFacetSelect.bind(this);
   }
 
   /**
@@ -29,9 +32,7 @@ class App extends Component {
   componentDidMount() {
     Api.getShoes().then((result) => {
         this.setState({shoes : result});
-        console.log(this.state.shoes);
     });
-
   }
 
   handleShoeSelect (shoe) {
@@ -41,16 +42,44 @@ class App extends Component {
     this.setState({cart: newCart});
   }
 
+  filterShoes() {
+    if (!this.state.facetSelected)
+     return this.state.shoes;
+
+    const brand = this.state.facetSelected.brand; //For some reason 'this' is null inside the filter, so I have to declare the brand outside
+
+    let list = this.state.shoes.filter(function(shoe) {
+      return shoe.brand === brand; 
+      });
+
+    return list;
+  }
+
+  handleFacetSelect(facet) {
+    if (!this.state.facetSelected){
+      this.setState({facetSelected: facet});
+    }
+    else if (facet.brand !== this.state.facetSelected.brand) {
+      this.setState({facetSelected: facet});
+    }
+    else {
+      this.setState({facetSelected: null});
+    }
+     
+  }
+
   render() {
     return (
       <div>
         <NavBar title="My App Store" />
         <div className="row">
           <div className="col s3">
+            <Facet items={this.state.shoes} 
+             onFacetSelect={this.handleFacetSelect} />
           </div>
 
           <div className="col s6">
-            <ShoeList shoes={this.state.shoes} 
+            <ShoeList shoes={this.filterShoes()} 
               onShoeSelect={this.handleShoeSelect} />
           </div>
 
