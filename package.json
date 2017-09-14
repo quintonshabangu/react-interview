@@ -21,5 +21,5 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://quintonshabangu.github.io/react-interview"
+  "homepage": "https://quintonshabangu.github.io/react-interview/public/index.html"
 }
