@@ -29,3 +29,17 @@ describe('App', () => {
         expect(wrapper.state().cart.length).toEqual(5);
       })
 });
+
+describe('CartSummary', () => {
+    it('list items in the Cart summary should increase when item is clicked', () => {
+      const wrapper = shallow(<App />);
+      wrapper.setState({ cart: mockShoes });
+      
+      const cart = shallow(<CartSummary cart={[]} />)
+      expect(cart.find('li').length).toEqual(3);
+
+      wrapper.instance().handleShoeSelect(mockShoes[0], function(){
+        expect(cart.find('li').length).toEqual(4);
+      });
+    })
+});
